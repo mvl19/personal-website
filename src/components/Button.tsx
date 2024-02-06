@@ -2,12 +2,13 @@ interface ButtonProps {
     label: string,
     href: string,
     internal?: boolean,
+    margin?: number,
 }
 
-const Button = ({label, internal=false, href} : ButtonProps) => {
+const Button = ({label, internal=false, href, margin=0} : ButtonProps) => {
     const classNames = `
-    bg-[#3895ff] text-white text-center hover:opacity-70 transition-all min-w-256 rounded pl-8 pr-8 pt-4 pb-4
-    after:content-['_>'] font-medium text-base inline-block cursor-pointer
+    bg-[#3895ff] text-white text-center hover:opacity-70 transition-all min-w-256 rounded px-8 py-4
+    after:content-['_>'] font-medium text-base inline-block cursor-pointer m-${margin}
     `
     if(internal) {
         return (

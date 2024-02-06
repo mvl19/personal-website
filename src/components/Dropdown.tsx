@@ -29,7 +29,7 @@ const Dropdown = ({
     return (
         <li className="menu list-none box-border min-w-20 max-w-40 cursor-pointer">
             <a className="space-x-2.5 items-center text-start z-50 text-base transition-all ease-in-linear" onClick={showMenu}>
-                <span>{title}</span> 
+                <span className="text-black">{title}</span> 
                 {visible ? 
                 <img className="transition-all rotate-90" src="/close.svg" alt="arrow dropdown" width={24} height={24}/>
                 :<img className="transition-all" src="/arrow.svg" alt="arrow dropdown" width={24} height={24}/>

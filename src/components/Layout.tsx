@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Dropdown from "./Dropdown";
+import Footer from "./Footer";
 
 const Layout = ({children}:{children: React.ReactNode}) => {
     const [visible, setVisible] = useState(window.matchMedia("(min-width: 768px)").matches);
@@ -34,7 +35,7 @@ const Layout = ({children}:{children: React.ReactNode}) => {
                 </div>
             </div>
             <nav className={"text-sm md:text-base overflow-hidden whitespace-normal shrink " + (visible ? "grow" : "")}>
-                <ul className={(visible ? "flex justify-around pr-4" : "justify-end")}>
+                <ul className={(visible ? "flex justify-around pr-4 text-xl" : "justify-end")}>
                     {visible ? links.map((link, index) => 
                     <li className="hover:border-b-[#dc2626]  border-2 items-center border-transparent" key={index}><a href={link.href}>{link.title}</a></li>
                     ) : <Dropdown>{links.map((link, index) => 
@@ -44,6 +45,7 @@ const Layout = ({children}:{children: React.ReactNode}) => {
             </nav>
         </header>
         {children}
+        <Footer />
         </>
     )
 }

@@ -28,7 +28,7 @@ const Layout = ({children}:{children: React.ReactNode}) => {
     
     return (
         <>
-        <header className="flex items-center justify-between h-16 w-screen font-mono text-black border border-b-gray-200">
+        <header className="flex items-center justify-between h-16 w-screen font-sans tracking-wide text-black border border-b-gray-200">
             <div className="flex pl-4 items-center gap-4 grow shrink">
                 <div className="cursor-pointer hover:bg-gray-400 rounded-full p-1">
                     <img src="/vite.svg" alt="home" width={24} height={24} onClick={()=>{}} />

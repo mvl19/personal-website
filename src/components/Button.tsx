@@ -3,22 +3,23 @@ interface ButtonProps {
     href: string,
     internal?: boolean,
     margin?: number,
+    onClick?: () => void,
 }
 
-const Button = ({label, internal=false, href, margin=0} : ButtonProps) => {
+const Button = ({label, internal=false, href, margin=0, onClick=()=>{}} : ButtonProps) => {
     const classNames = `
     bg-[#3895ff] text-white text-center hover:opacity-70 transition-all min-w-256 rounded px-8 py-4
     after:content-['_>'] font-medium text-base inline-block cursor-pointer m-${margin}
     `
     if(internal) {
         return (
-            <button className={classNames}>
+            <a className={classNames} onClick={onClick}>
                 {label}
-            </button>
+            </a>
         )
     }
     return (
-        <a className={classNames} href={href}>
+        <a className={classNames} href={href} onClick={onClick}>
             {label}
         </a>
     )

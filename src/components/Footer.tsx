@@ -7,11 +7,15 @@ const Footer = () => {
         {
             desc: 'LinkedIn',
             href: 'https://linkedin.com'
+        },
+        {
+            desc: 'Youtube',
+            href: 'https://youtube.com'
         }
     ]
     return (
         <footer className="sticky">
-            <ul className="flex justify-around text-xl font-mono text-black">
+            <ul className="flex justify-around items-center text-base font-mono text-black my-10 underline">
                 {socials.map((social, index) => 
                     <li key={index}><a href={social.href}>{social.desc}</a></li>)}
             </ul>

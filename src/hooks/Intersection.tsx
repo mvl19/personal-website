@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
-const useIntersector = () => {
-    const containerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+const useIntersector = <T extends HTMLDivElement> () : [React.RefObject<T>, boolean] => {
+    const containerRef = useRef<T | null>(null);
     const [onScreen, setOnScreen] = useState(false);
 
     useEffect(()=>{

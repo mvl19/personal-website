@@ -23,8 +23,8 @@ const Landing = () => {
             </div>
             <div className="flex items-center flex-col ">
                 <div className="font-mono text-xl lg:text-xl text-black tracking-tight">Technologies & Frameworks</div>
-                <div className="flex flex-wrap justify-center items-center gap-8 pb-4 m-5" >
-                    <Card>
+                <div className="flex flex-wrap justify-center items-center gap-8 pb-4 m-2" >
+                    <Card className="animate-[fade_1s_ease-in-out]">
                         <Icon name="ReactIcon" className="h-12 w-12"/>
                         <Icon name="VueIcon" className="h-12 w-12" />
                         <Icon name="SvelteIcon" className="h-12 w-12" />

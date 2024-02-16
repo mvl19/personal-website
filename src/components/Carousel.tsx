@@ -1,104 +1,149 @@
-import { useEffect, useState, useRef } from "react";
+import { useRef, useCallback, useEffect, useState, } from "react";
+import Icon from "./Icon";
 
-interface Item {
-    styles: React.CSSProperties,
-    player: {[key: string]: unknown}
-}
-
-const CarouselCard = ({children, description, boxSize=250}: {children?: React.ReactNode, description: string, boxSize: number|string}) => {
+const Card = ({caption, onClick=()=>{}}: {caption: string|number, onClick?: ()=>void}) => {
     return (
-        <div className={`flex justify-center items-center rounded-full border border-black shrink-0 w-[${boxSize}px] h-[${boxSize}px]`}>
-            {children}
-            <p className="text-xl">{description}</p>
+        <div className="flex justify-center items-center shrink-0 w-full h-full flex-col" onClick={onClick}>
+            <Icon name="VueIcon" className="rounded-full object-cover bg-white mx-2"/>
+            <div>{caption}手がふさがっていても</div>
         </div>
     )
 }
 
-interface CarouselProps {
-    items?: Item[],
+interface SwipeInfo {
+    isSwiping: boolean,
+    originX: number,
+    transitionX: number,
 }
 
-const Carousel = <T extends HTMLDivElement> ({items}: CarouselProps) => {
-    const totalItems = 3;
-    const [current, setCurrent] = useState(0);
-    const containerRef = useRef<T | null>(null);
-    const initial = useRef<number|null>(null);
-    const final = useRef<number|null>(null);
-    const posX2 = useRef(0);
-    const posX1 = useRef(0);
-    const threshold = 20;
+interface CarouselProps {
+  heading?: string,
+  SENSITIVITY?: number,
+  items: {
+    [key: string]: unknown
+  } []
+}
 
-    const next = () => {
-        if (current >= totalItems) return
-        else setCurrent(current + 1);
+const Carousel = <T extends HTMLDivElement>({heading="Heading", items=[1,2,3,4], SENSITIVITY=25}:CarouselProps) => {
+  const FIRST_SLIDES = 1;
+  const LAST_SLIDES = items.length+1;
+
+  const ref = useRef() as React.MutableRefObject<T>
+  const [current, setCurrent] = useState(FIRST_SLIDES)
+  const [swipeInfo, setSwipeInfo] = useState<SwipeInfo>({
+    isSwiping: false,
+    originX: 0,
+    transitionX: 0
+  })
+
+  const onMouseDown = useCallback((e: React.TouchEvent | React.MouseEvent | TouchEvent) => {
+    e.preventDefault();
+    if (swipeInfo.isSwiping) return;
+    const currentPosition = (e as React.MouseEvent<HTMLDivElement>).clientX || Number((e as React.TouchEvent<HTMLDivElement>).touches[0].clientX);
+    ref.current.style.removeProperty("transition");
+    setSwipeInfo(state => ({
+      ...state,
+      isSwiping: true,
+      originX: currentPosition
+    }));
+  }, [swipeInfo.isSwiping]);
+  
+  const onMouseMove = useCallback((e: MouseEvent) => {
+    setSwipeInfo(state => ({
+      ...state,
+      transitionX: e.clientX - state.originX,
+    }));
+  }, []);
+  
+  const onTouchMove = useCallback((e: TouchEvent) => {
+    setSwipeInfo(state => ({
+      ...state,
+      transitionX: Number(e.touches[0].clientX) - state.originX,
+    }));
+  }, []);
+  
+  const onMouseUp = useCallback((e: React.MouseEvent | MouseEvent | TouchEvent | React.TouchEvent) => {
+    const currentPosition = (e as React.MouseEvent<HTMLDivElement>).clientX || ((e as React.TouchEvent<HTMLDivElement>).changedTouches[0].clientX);
+    const delta = Math.floor((currentPosition - swipeInfo.originX) / ref.current!.clientWidth * 100);
+    setSwipeInfo(state => ({
+      ...state,
+      isSwiping: false,
+      transitionX: 0
+    }));
+    if ( delta < -SENSITIVITY ) {
+      if (current === LAST_SLIDES) return;
+      ref.current.style.transition = 'all 0.2s ease-in-out';
+      ref.current.style.transform = `translateX(-${current}00%)`;
+      setCurrent(current => current + 1);
+    } else if ( delta > SENSITIVITY) {
+      if (current === FIRST_SLIDES) return;
+      ref.current.style.transition = 'all 0.2s ease-in-out';
+      ref.current.style.transform = `translateX(-${current - 1}00%)`;
+      setCurrent(current => current - 1);
+    } else {
+      ref.current.style.transition = 'all 0.2s ease-in-out'
     }
+  }, [current, swipeInfo.originX]);
 
-    const prev = () => {
-        if (current === 0) return
-        else setCurrent(current - 1);
+  const clicked = (event: React.MouseEvent) => {
+    if(event.target as HTMLDivElement) {
+        setCurrent(Number((event.target as HTMLDivElement).id));
     }
+  };
 
-    const touchStart = (event: React.TouchEvent) => {
-        if(containerRef.current) {
-            posX1.current = event.touches[0].clientX;
-            initial.current = posX1.current;
-        }
+  useEffect(()=>{
+    ref.current.style.transition = 'all 0.3s ease-in-out';
+    ref.current.style.transform = `translateX(-${current-1}00%)`;
+  },[current])
+
+  useEffect(() => {
+    if(swipeInfo.isSwiping) {
+      document.addEventListener("mousemove", onMouseMove, {capture: true});
+      document.addEventListener("mouseleave", onMouseUp, {capture: true});
+      document.addEventListener("mouseup", onMouseUp, {capture: true});
+      document.addEventListener("touchmove", onTouchMove, {capture: true});
+      document.addEventListener("touchend", onMouseUp, {capture: true});
     }
-
-    const touchMove = (event: React.TouchEvent) => {
-        if(containerRef.current) {
-            posX2.current = posX1.current - event.touches[0].clientX;
-            posX1.current = event.touches[0].clientX;
-            // containerRef.current.style.left = (containerRef.current.getBoundingClientRect().left - (posX2.current)/3) + "px"
-        }
+    return () => {
+      document.removeEventListener("mousemove", onMouseMove, {capture: true});
+      document.removeEventListener("mouseleave", onMouseUp, {capture: true});
+      document.removeEventListener("mouseup", onMouseUp, {capture: true});
+      document.removeEventListener("touchmove", onTouchMove, {capture: true});
+      document.removeEventListener("touchend", onMouseUp, {capture: true});
     }
-
-    const touchEnd = () => {
-        if(containerRef.current) {
-            final.current = posX1.current;
-            if(final.current - initial.current! < -threshold) {
-                next();
-            } else if(final.current - initial.current! > threshold) {
-                prev();
-            } else {
-                containerRef.current.style.left = `${initial.current}px`
-            }
-
-        }
-    }
-
-    const clicked = (event: React.MouseEvent) => {
-        if(event.target as T) {
-            setCurrent(Number((event.target as T).id))
-        }
-    }
-
-    useEffect(()=>{
-        if(containerRef.current) {
-            containerRef.current.style.transition = 'all 0.2s ease-in-out';
-            const translate = Number(current + '00') + 15;
-            containerRef.current.style.transform = `translateX(-${translate}%)`;
-        }
-    }, [current]);
+  }, [swipeInfo.isSwiping]);
+  
+  useEffect(() => {
+    const containerRef = ref.current;
+    containerRef.addEventListener('touchstart', onMouseDown, { passive: false, capture: true });
+    return () => containerRef.removeEventListener('touchstart', onMouseDown);
+  }, [onMouseDown]);
 
     return (
-        <section className="flex justify-center items-center flex-col overflow-hidden  bg-[#f7f7f7] p-20" >
-            <div className={`w-[250px] `} > 
-                <div className="flex relative gap-5" ref={containerRef} onTouchMove={touchMove} onTouchStart={touchStart} onTouchEnd={touchEnd} >
-                    <div className={`flex justify-center items-center rounded-full border border-black shrink-0 w-[250px] h-[250px]`}>0</div>
-                    <div className={`flex justify-center items-center rounded-full border border-black shrink-0 w-[250px] h-[250px]`}>1</div>
-                    <div className={`flex justify-center items-center rounded-full border border-black shrink-0 w-[250px] h-[250px]`}>2</div>
-                    <div className={`flex justify-center items-center rounded-full border border-black shrink-0 w-[250px] h-[250px]`}>3</div>
+        <section className="bg-[#f7f7f7] p-20">
+          <h2 className={"text-3xl font-bold text-center"}>{heading}</h2>
+            <div className="flex justify-center items-center overflow-hidden ">
+              <div className="relative w-[292px] h-[292px] transition ease-out">
+                <div className="absolute flex w-full h-full t-0 l-0" 
+                style={{
+                    left: `${swipeInfo.transitionX}px`
+                }
+                }
+                onMouseDown={onMouseDown} 
+                ref={ref}>
+                    {[1,2,3,4].map(c => <Card caption={c} key={c}/>)}
                 </div>
             </div>
-            <div className="flex">
-                {[0,1,2,3].map(n => 
-                <div 
-                    className={`w-8 h-8 rounded-full bg-[#e0e0e0] m-4 cursor-pointer ${n === current && 'bg-rose-400'}`}
-                    onClick={clicked}
-                    id={String(n)}
-                    key={n}
-                />)}
+            
+            </div>
+            <div className="flex justify-center items-center">
+              {items.map((item, index) => 
+              <div 
+                className={"rounded-full m-4 cursor-pointer " + `${current === index+1 ? "bg-rose-400 w-6 h-6": "bg-[#e8e8e8] w-4 h-4"}`}
+                onClick={clicked}
+                id={String(index+1)}
+                key={index}
+              />)}
             </div>
         </section>
     )

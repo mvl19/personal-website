@@ -14,7 +14,7 @@ const Footer = () => {
         }
     ]
     return (
-        <footer className="sticky">
+        <footer className="">
             <ul className="flex justify-around items-center text-base font-mono text-black my-10 underline">
                 {socials.map((social, index) => 
                     <li key={index}><a href={social.href}>{social.desc}</a></li>)}

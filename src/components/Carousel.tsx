@@ -120,11 +120,11 @@ const Carousel = <T extends HTMLDivElement>({heading="Heading", items=[1,2,3,4],
   }, [onMouseDown]);
 
     return (
-        <section className="bg-[#f7f7f7] p-20">
+        <section className="bg-[#f7f7f7] p-20 text-black">
           <h2 className={"text-3xl font-bold text-center"}>{heading}</h2>
             <div className="flex justify-center items-center overflow-hidden ">
-              <div className="relative w-[292px] h-[292px] transition ease-out">
-                <div className="absolute flex w-full h-full t-0 l-0" 
+              <div className="relative w-[292px] h-[292px] transition ease-out z-1">
+                <div className="absolute flex w-full h-full t-0 l-0 z-1 " 
                 style={{
                     left: `${swipeInfo.transitionX}px`
                 }

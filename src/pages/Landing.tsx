@@ -1,19 +1,10 @@
 import Button from "../components/Button";
 import Card from "../components/Card";
-import { useEffect } from "react";
-import useIntersector from "../hooks/Intersection";
 import Icon from "../components/Icon";
 import Carousel from "../components/Carousel";
+import About from "./About/About";
 
 const Landing = () => {
-    const [ref, onScreen] = useIntersector();
-    useEffect(()=>{
-        if(onScreen) {
-            setTimeout(()=>{
-                (ref.current!).classList.add('text-3xl');
-            }, 1000)
-        }
-    }, [onScreen])
 
     return (
         <>
@@ -29,21 +20,21 @@ const Landing = () => {
                         <Icon name="VueIcon" className="h-12 w-12" />
                         <Icon name="SvelteIcon" className="h-12 w-12" />
                     </Card>
-                    <Card>
+                    <Card className="animate-[fade_1s_ease-in-out]">
                         <Icon name="ExpressIcon" className="h-12 w-12" />
                         <Icon name="FastApiIcon" className="h-12 w-12 m-2" />
                     </Card>
-                    <Card>
+                    <Card className="animate-[fade_1s_ease-in-out]">
                         <Icon name="TypescriptIcon" className="h-12 w-12" />
                         <Icon name="PythonIcon" className="h-12 w-12" />
                     </Card>
                     
                 </div>
                 <Button label="Resume" href="/" />
-                <div id='#change' ref={ref}>Ref</div>
             </div>
         </section>
         <Carousel />
+        <About content={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum`}/>
         </>
     )
 }

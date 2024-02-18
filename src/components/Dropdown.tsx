@@ -35,7 +35,7 @@ const Dropdown = ({
                 :<img className="transition-all" src="/arrow.svg" alt="arrow dropdown" width={24} height={24}/>
                 }
             </a>
-            {visible ?<ul className="absolute pl-0 text-start border border-rounded">
+            {visible ?<ul className="fixed text-xl rounded-lg z-[999] px-2 py-2 right-2 md:p-0 border bg-white box-shadow-xl mt-4 w-40 block">
                 {children}
             </ul> : <></>}
             

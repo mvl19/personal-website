@@ -1,14 +1,4 @@
 import { useRef, useCallback, useEffect, useState, } from "react";
-import Icon from "./Icon";
-
-const Card = ({caption, onClick=()=>{}}: {caption: string|number, onClick?: ()=>void}) => {
-    return (
-        <div className="flex justify-center items-center shrink-0 w-full h-full flex-col" onClick={onClick}>
-            <Icon name="VueIcon" className="rounded-full object-cover bg-white mx-2"/>
-            <div>{caption}手がふさがっていても</div>
-        </div>
-    )
-}
 
 interface SwipeInfo {
     isSwiping: boolean,
@@ -19,14 +9,14 @@ interface SwipeInfo {
 interface CarouselProps {
   heading?: string,
   SENSITIVITY?: number,
-  items: {
-    [key: string]: unknown
-  } []
+  adjacent?: boolean,
+  children: React.ReactNode,
+  items?: unknown[],
 }
 
-const Carousel = <T extends HTMLDivElement>({heading="Heading", items=[1,2,3,4], SENSITIVITY=25}:CarouselProps) => {
+const Carousel = <T extends HTMLDivElement>({heading="Heading", SENSITIVITY=25, adjacent=true, children} : CarouselProps) => {
   const FIRST_SLIDES = 1;
-  const LAST_SLIDES = items.length+1;
+  const [slides, setSlides] = useState<Element[]>([]);
 
   const ref = useRef() as React.MutableRefObject<T>
   const [current, setCurrent] = useState(FIRST_SLIDES)
@@ -71,7 +61,7 @@ const Carousel = <T extends HTMLDivElement>({heading="Heading", items=[1,2,3,4],
       transitionX: 0
     }));
     if ( delta < -SENSITIVITY ) {
-      if (current === LAST_SLIDES) return;
+      if (current === slides.length) return;
       ref.current.style.transition = 'all 0.2s ease-in-out';
       ref.current.style.transform = `translateX(-${current}00%)`;
       setCurrent(current => current + 1);
@@ -90,6 +80,10 @@ const Carousel = <T extends HTMLDivElement>({heading="Heading", items=[1,2,3,4],
         setCurrent(Number((event.target as HTMLDivElement).id));
     }
   };
+
+  useEffect(()=>{
+    setSlides([...ref.current.children])
+  },[])
 
   useEffect(()=>{
     ref.current.style.transition = 'all 0.3s ease-in-out';
@@ -120,24 +114,21 @@ const Carousel = <T extends HTMLDivElement>({heading="Heading", items=[1,2,3,4],
   }, [onMouseDown]);
 
     return (
-        <section className="bg-[#f7f7f7] p-20 text-black">
+        <section className={"bg-[#f7f7f7] text-black py-20 " + `${adjacent ? "px-0" : "px-20"}`}>
           <h2 className={"text-3xl font-bold text-center"}>{heading}</h2>
             <div className="flex justify-center items-center overflow-hidden ">
-              <div className="relative w-[292px] h-[292px] transition ease-out z-1">
+              <div className="relative w-[262px] h-[262px] transition ease-out z-1">
                 <div className="absolute flex w-full h-full t-0 l-0 z-1 " 
-                style={{
-                    left: `${swipeInfo.transitionX}px`
-                }
-                }
+                style={{left: `${swipeInfo.transitionX}px`}}
                 onMouseDown={onMouseDown} 
                 ref={ref}>
-                    {[1,2,3,4].map(c => <Card caption={c} key={c}/>)}
+                  {children}
                 </div>
             </div>
             
             </div>
             <div className="flex justify-center items-center">
-              {items.map((item, index) => 
+              {slides.map((_, index) => 
               <div 
                 className={"rounded-full m-4 cursor-pointer " + `${current === index+1 ? "bg-rose-400 w-6 h-6": "bg-[#e8e8e8] w-4 h-4"}`}
                 onClick={clicked}

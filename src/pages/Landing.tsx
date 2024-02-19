@@ -2,7 +2,25 @@ import Button from "../components/Button";
 import Card from "../components/Card";
 import Icon from "../components/Icon";
 import Carousel from "../components/Carousel";
-import About from "./About/About";
+
+const CarouselCard = ({caption, onClick=()=>{}}: {caption: string|number, onClick?: ()=>void}) => {
+    return (
+        <div className="flex justify-center items-center shrink-0 w-full h-full flex-col" onClick={onClick}>
+            <Icon name="VueIcon" className="rounded-full object-cover bg-white mx-2"/>
+            <div>{caption}手がふさがっていても</div>
+        </div>
+    )
+}
+
+const About = ({content="placeholder", heading="About Me", }: {content: string, heading?: string, }) => {
+    return (
+        <section className="text-black p-20">
+            <h1 className="text-4xl font-bold">{heading}</h1>
+            <p className="text-2xl sm:text-2xl md:text-2xl lg:text-2xl xl:text-3xl">{content}</p>
+        </section>
+    )
+}
+
 
 const Landing = () => {
 
@@ -33,7 +51,9 @@ const Landing = () => {
                 <Button label="Resume" href="/" />
             </div>
         </section>
-        <Carousel />
+        <Carousel>
+            {[0,1,2,3].map(c => <CarouselCard caption={c} key={c} />)}
+        </Carousel>
         <About content={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum`}/>
         </>
     )

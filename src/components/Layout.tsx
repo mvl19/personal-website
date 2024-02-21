@@ -8,11 +8,11 @@ export const ThemeContext = createContext(true);
 
 const Layout = ({children}:{children: React.ReactNode}) => {
     const [visible, setVisible] = useState(window.matchMedia("(min-width: 768px)").matches);
-    const [theme, setTheme] = useState(window.matchMedia("(prefers-color-scheme:dark)").matches);
+    // const [theme, setTheme] = useState(window.matchMedia("(prefers-color-scheme:dark)").matches);
 
-    const themeClick = () => {
-        setTheme(!theme);
-    }
+    // const themeClick = () => {
+    //     setTheme(!theme);
+    // }
 
     useEffect(()=>{
         const mql = window.matchMedia("(min-width: 768px)");
@@ -64,7 +64,7 @@ const Layout = ({children}:{children: React.ReactNode}) => {
                     ) : <Dropdown>{links.map((link, index) => 
                         <li className="py-1 pl-4" key={index}><a href={link.href}>{link.title}</a></li>
                         )}</Dropdown>}
-                    <li className="hover:bg-gray-400 rounded-full" onClick={themeClick}><img src="close.svg" width={32} height={32}/></li>
+                    {/* <li className="hover:bg-gray-400 rounded-full" onClick={themeClick}><Icon name="CloseIcon" className="h-[32px] w-[32px]"/></li> */}
                 </ul>
             </nav>
         </header>

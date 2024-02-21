@@ -1,6 +1,7 @@
 import { useEffect, useState, createContext } from "react";
 import Dropdown from "./Dropdown";
 import Footer from "./Footer";
+import Icon from "./Icon";
 
 export const ViewContext = createContext(false);
 export const ThemeContext = createContext(true);
@@ -50,10 +51,10 @@ const Layout = ({children}:{children: React.ReactNode}) => {
     
     return (
         <>
-        <header className={"flex items-center justify-between h-16 w-screen font-sans tracking-wide text-black border border-b-gray-200 fixed top-0 z-[999] " + `${theme ? "bg-gray": "bg-white"}`}>
+        <header className={"flex items-center justify-between h-16 w-screen font-sans tracking-wide text-black border border-b-gray-200 fixed top-0 z-[999] bg-white" }>
             <div className="flex pl-4 items-center gap-4 grow shrink">
                 <div className="cursor-pointer hover:bg-gray-400 rounded-full p-1">
-                    <img src="/vite.svg" alt="home" width={32} height={32} onClick={()=>{}} />
+                    <Icon name="HomeIcon" className="w-[32px] h-[32px]" />
                 </div>
             </div>
             <nav className={"text-sm md:text-base whitespace-normal shrink " + (visible ? "grow" : "")}>

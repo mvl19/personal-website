@@ -27,15 +27,15 @@ const Dropdown = ({
     };
 
     return (
-        <li className="menu list-none box-border min-w-20 max-w-40 cursor-pointer">
+        <li className="flex items-center justify-center menu list-none min-w-20 max-w-40 cursor-pointer align-self-center">
             <a className="space-x-2.5 items-center text-start z-50 text-base transition-all ease-in-linear" onClick={showMenu}>
                 <span className="text-black">{title}</span> 
                 {visible ? 
-                <img className="transition-all rotate-90" src="/close.svg" alt="arrow dropdown" width={24} height={24}/>
-                :<img className="transition-all" src="/arrow.svg" alt="arrow dropdown" width={24} height={24}/>
+                <img className="transition-all rotate-90" src="/close.svg" alt="arrow dropdown" width={32} height={32}/>
+                :<img className="transition-all" src="/arrow.svg" alt="arrow dropdown" width={32} height={32}/>
                 }
             </a>
-            {visible ?<ul className="fixed text-xl rounded-lg z-[999] px-2 py-2 right-2 md:p-0 border bg-white box-shadow-xl mt-4 w-40 block">
+            {visible ?<ul className="fixed text-xl rounded-lg z-[999] px-2 py-2 right-2 md:p-0 border bg-white box-shadow-xl mt-16 top-0 w-40 block">
                 {children}
             </ul> : <></>}
             

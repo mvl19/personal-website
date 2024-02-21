@@ -11,20 +11,18 @@ interface CarouselProps {
   SENSITIVITY?: number,
   adjacent?: boolean,
   children: React.ReactNode,
-  items?: unknown[],
 }
 
 const Carousel = <T extends HTMLDivElement>({heading="Heading", SENSITIVITY=25, adjacent=true, children} : CarouselProps) => {
   const FIRST_SLIDES = 1;
   const [slides, setSlides] = useState<Element[]>([]);
-
-  const ref = useRef() as React.MutableRefObject<T>
-  const [current, setCurrent] = useState(FIRST_SLIDES)
+  const ref = useRef() as React.MutableRefObject<T>;
+  const [current, setCurrent] = useState(FIRST_SLIDES);
   const [swipeInfo, setSwipeInfo] = useState<SwipeInfo>({
     isSwiping: false,
     originX: 0,
     transitionX: 0
-  })
+  });
 
   const onMouseDown = useCallback((e: React.TouchEvent | React.MouseEvent | TouchEvent) => {
     e.preventDefault();
@@ -114,8 +112,8 @@ const Carousel = <T extends HTMLDivElement>({heading="Heading", SENSITIVITY=25, 
   }, [onMouseDown]);
 
     return (
-        <section className={"bg-[#f7f7f7] text-black py-20 " + `${adjacent ? "px-0" : "px-20"}`}>
-          <h2 className={"text-3xl font-bold text-center"}>{heading}</h2>
+        <section className={"bg-[#f7f7f7] text-black py-10 " + `${adjacent ? "px-0" : "px-20"}`}>
+          <h2 className={"text-3xl font-bold text-center py-5"}>{heading}</h2>
             <div className="flex justify-center items-center overflow-hidden ">
               <div className="relative w-[262px] h-[262px] transition ease-out z-1">
                 <div className="absolute flex w-full h-full t-0 l-0 z-1 " 
@@ -125,17 +123,17 @@ const Carousel = <T extends HTMLDivElement>({heading="Heading", SENSITIVITY=25, 
                   {children}
                 </div>
             </div>
-            
+
             </div>
-            <div className="flex justify-center items-center">
+            <ul className="flex justify-center items-center">
               {slides.map((_, index) => 
-              <div 
+              <li 
                 className={"rounded-full m-4 cursor-pointer " + `${current === index+1 ? "bg-rose-400 w-6 h-6": "bg-[#e8e8e8] w-4 h-4"}`}
                 onClick={clicked}
                 id={String(index+1)}
                 key={index}
               />)}
-            </div>
+            </ul>
         </section>
     )
 }

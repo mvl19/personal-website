@@ -8,8 +8,8 @@ interface ButtonProps {
 
 const Button = ({label, internal=false, href, margin=0, onClick=()=>{}} : ButtonProps) => {
     const classNames = `
-    bg-[#3895ff] text-white text-center hover:opacity-70 transition-all min-w-256 rounded px-8 py-4
-    after:content-['_>'] font-medium text-base inline-block cursor-pointer m-${margin}
+    bg-[#3895ff] text-white text-center hover:opacity-70 transition-all min-w-256 rounded-lg px-8 py-4
+     font-medium text-base inline-block cursor-pointer m-${margin}
     `
     if(internal) {
         return (

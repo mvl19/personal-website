@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Icon from "./Icon";
 import CloseIcon from "../assets/close.svg";
 import ArrowIcon from '../assets/arrow.svg';
 

@@ -6,14 +6,14 @@ interface SwipeInfo {
     transitionX: number,
 }
 
-interface CarouselProps {
+interface SliderProps {
   heading?: string,
   SENSITIVITY?: number,
   adjacent?: boolean,
   children: React.ReactNode,
 }
 
-const Carousel = <T extends HTMLDivElement>({heading="Heading", SENSITIVITY=25, adjacent=true, children} : CarouselProps) => {
+const Slider = <T extends HTMLDivElement>({heading="Heading", SENSITIVITY=25, adjacent=true, children} : SliderProps) => {
   const FIRST_SLIDES = 1;
   const [slides, setSlides] = useState<Element[]>([]);
   const ref = useRef() as React.MutableRefObject<T>;
@@ -138,4 +138,4 @@ const Carousel = <T extends HTMLDivElement>({heading="Heading", SENSITIVITY=25, 
     )
 }
 
-export default Carousel;
+export default Slider;

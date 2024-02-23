@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 export default {
   content: [
     "./index.html",
@@ -30,7 +31,7 @@ export default {
             transform: 'scale(1,1)'
           }
         }
-      }
+      },
     },
   },
   plugins: [],

@@ -8,7 +8,7 @@ const useIntersector = <T extends HTMLDivElement> () : [React.RefObject<T>, bool
         const observer = new IntersectionObserver(([entry]) => {
             setOnScreen(entry.isIntersecting); 
         })
-        observer.observe(containerRef.current!)
+        observer.observe(containerRef.current!);
         return () => observer.disconnect();
     },[])
 

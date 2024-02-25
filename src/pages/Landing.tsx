@@ -1,5 +1,5 @@
 import Button from "../components/Button";
-import Display from "../components/Display";
+import { Display } from "../components/Display";
 import Tech from "./Content/Tech";
 
 const About = ({content="placeholder", heading="About Me", }: {content: string, heading?: string, }) => {
@@ -20,7 +20,7 @@ const Landing = () => {
         <>
         <Tech />
         <Display>
-            {[0,1,2,3].map(c => <Display.ResponsiveCard iconName="AirflowIcon" caption={c} key={c} />)}
+            {[0,1,2,3].map(c => <Display.ResponsiveCard iconName="VueIcon" caption={c} key={c} />)}
         </Display>
         <About content={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum`}/>
         </>

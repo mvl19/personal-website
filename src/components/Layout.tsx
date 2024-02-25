@@ -2,12 +2,14 @@ import { useEffect, useState, createContext, useRef, } from "react";
 import Dropdown from "./Dropdown";
 import Footer from "../pages/Content/Footer";
 import Icon from "./Icon";
+import { Switch } from "./Switch";
+import useViewport from "../hooks/Viewport";
 
 export const ViewContext = createContext(false);
 export const ThemeContext = createContext(true);
 
 const Layout = ({children}:{children: React.ReactNode}) => {
-    const [visible, setVisible] = useState(window.matchMedia("(min-width: 768px)").matches);
+    const visible = useViewport();
     const [activeSection, setActiveSection] = useState<string|null>('home');
     const activeSectionRef = useRef() as React.MutableRefObject<NodeListOf<HTMLElement>>;
     
@@ -29,19 +31,6 @@ const Layout = ({children}:{children: React.ReactNode}) => {
 
         return ()=> window.removeEventListener('scroll', onScroll);
     },[])
-
-    useEffect(()=>{
-        const mql = window.matchMedia("(min-width: 768px)");
-        const onChange = () => {
-            setVisible(mql.matches);
-        }
-        mql.addEventListener('change', onChange);
-        document.addEventListener('change', onChange);
-
-        return () => document.removeEventListener('change', onChange);
-    },[]);
-
-    
 
     const links = [
         {title: 'Home',
@@ -73,11 +62,11 @@ const Layout = ({children}:{children: React.ReactNode}) => {
             <nav className={"text-sm md:text-base whitespace-normal shrink " + (visible ? "grow" : "")}>
                 <ul className={(visible ? "flex justify-around items-center pr-4 text-xl " : "flex justify-end ") + "bg-white"}>
                     {visible ? links.map((link, index) => 
-                    <li className="border-transparent text-xl" key={index}><a className={"hover:cursor-pointer " + `${activeSection === link.title.toLowerCase() ? "uppercase": ""}`} onClick={link.onClick}>{link.title}</a></li>
+                    <li className="border-transparent text-xl" key={index}><a className={"hover:cursor-pointer p-2 " + `${activeSection === link.title.toLowerCase() ? "bg-[#3895ff] text-white rounded ": ""}`} onClick={link.onClick}>{link.title}</a></li>
                     ) : <Dropdown>{links.map((link, index) => 
                         <li className="py-1 pl-4" key={index}><a onClick={link.onClick}>{link.title}</a></li>
                         )}</Dropdown>}
-                    {/* <li className="hover:bg-gray-400 rounded-full" onClick={themeClick}><Icon name="CloseIcon" className="h-[32px] w-[32px]"/></li> */}
+                    <Switch onClick={()=>{}}/>
                 </ul>
             </nav>
         </header>

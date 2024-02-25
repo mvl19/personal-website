@@ -18,6 +18,7 @@ import FirebaseIcon from './firebase.svg?react';
 import PostgreIcon from './postgre.svg?react';
 import SparkIcon from './spark.svg?react';
 import PostmanIcon from './postman.svg?react';
+import SunIcon from './sun.svg?react'
 
 export { ReactIcon, VueIcon, TypescriptIcon, SvelteIcon, PythonIcon, ExpressIcon, FastApiIcon, ArrowIcon, CloseIcon, DevIcon, HomeIcon,
-    KafkaIcon, RabbitIcon, DockerIcon, AirflowIcon, FirebaseIcon, PostgreIcon, SparkIcon, PostmanIcon}
+    KafkaIcon, RabbitIcon, DockerIcon, AirflowIcon, FirebaseIcon, PostgreIcon, SparkIcon, PostmanIcon, SunIcon }

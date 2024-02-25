@@ -1,9 +1,10 @@
-interface ButtonProps {
+type ButtonDetails = React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>
+
+interface ButtonProps extends ButtonDetails {
     label: string,
     href: string,
     internal?: boolean,
     margin?: number,
-    onClick?: () => void,
 }
 
 const Button = ({label, internal=false, href, margin=0, onClick=()=>{}} : ButtonProps) => {

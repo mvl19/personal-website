@@ -1,3 +1,3 @@
-import Display from "./Display";
+import { Display, ResponsiveCard } from "./Display";
 
-export default Display;
+export { Display, ResponsiveCard } 

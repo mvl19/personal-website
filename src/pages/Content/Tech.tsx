@@ -1,5 +1,6 @@
 import Card from "../../components/Card";
 import Icon from "../../components/Icon";
+
 const Tech = () => {
     return (
         <section className="lg:grid lg:grid-cols-2 sm:flex sm:justify-center sm:flex-wrap items-center gap-10 my-20" data-section id="home">

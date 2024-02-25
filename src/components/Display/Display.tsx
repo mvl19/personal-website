@@ -16,7 +16,7 @@ interface ResponsiveCard {
     iconName: IconType,
 }
 
-export const ResponsiveCard = ({caption, onClick=()=>{}, iconName} : ResponsiveCard) => {
+const ResponsiveCard = ({caption, onClick=()=>{}, iconName} : ResponsiveCard) => {
     const [observeRef, onScreen] = useIntersector();
     return (
         <div className="flex justify-center items-center shrink-0 w-full h-full md:shrink flex-col hover:opacity-70 " onClick={onClick} ref={observeRef}>
@@ -30,7 +30,7 @@ const Display = ({children, heading="Heading"}: DisplayProps) => {
     const visible = useContext(ViewContext);
     if (visible) {
         return (
-            <section className="bg-[#f7f7f7] flex-col px-8">
+            <section className="bg-[#f7f7f7] flex-col px-8 text-black">
                 <h2 className={"text-3xl font-bold text-center pt-4"}>{heading}</h2>
                 <div className="flex items-center justify-between h-[420px] gap-4">
                     {children}
@@ -47,4 +47,4 @@ const Display = ({children, heading="Heading"}: DisplayProps) => {
 
 Display.ResponsiveCard = ResponsiveCard;
 
-export default Display;
+export { Display, ResponsiveCard }

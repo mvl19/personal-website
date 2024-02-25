@@ -62,11 +62,12 @@ const Layout = ({children}:{children: React.ReactNode}) => {
             <nav className={"text-sm md:text-base whitespace-normal shrink " + (visible ? "grow" : "")}>
                 <ul className={(visible ? "flex justify-around items-center pr-4 text-xl " : "flex justify-end ") + "bg-white"}>
                     {visible ? links.map((link, index) => 
-                    <li className="border-transparent text-xl" key={index}><a className={"hover:cursor-pointer p-2 " + `${activeSection === link.title.toLowerCase() ? "bg-[#3895ff] text-white rounded ": ""}`} onClick={link.onClick}>{link.title}</a></li>
+                    <li className="border-transparent text-xl" key={index}><a className={"hover:cursor-pointer p-2 " + `${activeSection === link.title.toLowerCase() ? "text-cyan-400 rounded ": ""}`} onClick={link.onClick}>{link.title}</a></li>
                     ) : <Dropdown>{links.map((link, index) => 
                         <li className="py-1 pl-4" key={index}><a onClick={link.onClick}>{link.title}</a></li>
-                        )}</Dropdown>}
-                    <Switch onClick={()=>{}}/>
+                        )}
+                        <Switch onClick={()=>{}}/></Dropdown>}
+                    {visible && <Switch onClick={()=>{}}/>}
                 </ul>
             </nav>
         </header>

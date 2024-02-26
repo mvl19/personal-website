@@ -3,7 +3,7 @@ import { ViewContext } from "../Layout";
 import Slider from "./Slider";
 import Icon from "../Icon";
 import { IconType } from "../Icon";
-import useIntersector from "../../hooks/Intersection";
+import useIntersector from "../../hooks/useIntersector";
 
 interface DisplayProps {
     children: React.ReactNode,

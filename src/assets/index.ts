@@ -1,4 +1,3 @@
-// import ReactIcon from './react.svg'
 import ReactIcon from './react.svg?react';
 import VueIcon from './vue.svg?react';
 import TypescriptIcon from './typescript.svg?react';

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-const useTheme = () => {
+const useTheme = (): [boolean, React.Dispatch<boolean>] => {
     const [theme, setTheme] = useState(window.matchMedia("(prefers-color-scheme:dark)").matches);
 
     useEffect(()=>{

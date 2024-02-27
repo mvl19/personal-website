@@ -5,11 +5,13 @@ interface DropdownProps {
     title?: string,
     menu?: string [] | string,
     children: React.ReactNode,
+    isDarkMode: boolean,
 }
 
 const Dropdown = ({
     title='',
-    children,}: DropdownProps) => {
+    children,
+    isDarkMode}: DropdownProps) => {
     const [visible, setVisible] = useState(false);
 
     const closeMenu = (event: MouseEvent) => {
@@ -34,9 +36,10 @@ const Dropdown = ({
                 <Icon name="CloseIcon" className={`h-[32px] w-[32px] transition-transform ${visible ? "rotate-90" : "opacity-0 h-0 w-0"}`} />
                 <Icon name="ArrowIcon" className={`h-[32px] w-[32px] transition-transform ${visible ? "opacity-0 h-0 w-0" : "rotate-180"}`} />
             </a>
-            {visible && <ul className="fixed text-xl rounded-lg z-[999] px-2 py-2 right-2 md:p-0 border bg-white box-shadow-xl mt-16 top-0 w-40 block">
+            <ul className={`text-xl rounded-lg z-[99] px-2 py-2 right-2 md:p-0 border box-shadow-xl mt-16 top-0 
+            w-40 block ${isDarkMode ? "bg-[#1a1a1a]" : "bg-white"} ${visible ? "fixed" : "hidden"}`}>
                 {children}
-            </ul>}
+            </ul>
             
         </li>
     )

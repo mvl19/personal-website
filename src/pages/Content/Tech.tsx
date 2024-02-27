@@ -1,14 +1,18 @@
 import Card from "../../components/Card";
 import Icon from "../../components/Icon";
+import { useContext } from "react";
+import { ThemeContext } from "../../components/Layout";
 
 const Tech = () => {
+    const isDarkMode = useContext(ThemeContext);
+
     return (
-        <section className="lg:grid lg:grid-cols-2 sm:flex sm:justify-center sm:flex-wrap items-center gap-10" data-section id="home">
+        <section className={"lg:grid lg:grid-cols-2 sm:flex sm:justify-center sm:flex-wrap items-center gap-10 " + `${isDarkMode ? "bg-[#1a1a1a]" : "bg-white"}`} data-section id="home">
             <div className="flex items-center p-5">
                 <Icon name="DevIcon" className="pt-10 animate-[popout_0.5s_ease-in-out]" />
             </div>
             <div className="flex flex-wrap items-center flex-col">
-                <h3 className="text-2xl text-black tracking-medium">Technologies & Frameworks</h3>
+                <h3 className={`text-2xl tracking-medium ${isDarkMode ? "text-[#3ccf8d]" : "text-black"}`}>Technologies & Frameworks</h3>
                 <div className="flex flex-wrap justify-center items-center gap-8 py-8 m-2 grow shrink" >
                     <Card className="animate-[fadeup_1s_ease-in-out]">
                         <Icon name="ReactIcon" className="h-12 w-12" />
@@ -16,7 +20,7 @@ const Tech = () => {
                         <Icon name="SvelteIcon" className="h-12 w-12" />
                     </Card>
                     <Card className="animate-[fadeup_1.5s_ease-in-out]">
-                        <Icon name="ExpressIcon" className="h-12 w-12" />
+                        <Icon name="ExpressIcon" className="h-12 w-12"/>
                         <Icon name="FastApiIcon" className="h-12 w-12 m-2" />
                     </Card>
                     <Card className="animate-[fadeup_2.5s_ease-in-out]">

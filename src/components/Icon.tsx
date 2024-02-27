@@ -2,19 +2,21 @@ import React from "react";
 import * as svgs from '../assets';
 
 export type IconType = keyof typeof svgs;
-type Fill =  `${string}`
+export type Color =  `${string}` | 'currentColor';
 export interface IconProps {
     name: IconType,
     className?: string,
     style?: React.CSSProperties,
-    fill?: Fill,
+    fill?: Color,
+    stroke?: Color
 }
 
-const Icon = ({name, className, style, fill}: IconProps) => {
+const Icon = ({name, className, style, fill, stroke}: IconProps) => {
     return React.createElement(svgs[name], {
         className,
         style, 
-        fill
+        fill,
+        stroke
     })
 }
 

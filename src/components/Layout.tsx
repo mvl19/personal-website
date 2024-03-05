@@ -36,7 +36,9 @@ const Layout = ({children}:{children: React.ReactNode}) => {
 
     const onSwitchClick = () => {
         setIsDarkMode(!isDarkMode);
-        console.log(isDarkMode);
+        document.documentElement.setAttribute(
+            "data-color-scheme", isDarkMode ? "light": "dark",
+        )
     }
     
     return (
@@ -55,7 +57,7 @@ const Layout = ({children}:{children: React.ReactNode}) => {
                     ) : <Dropdown isDarkMode={isDarkMode}>{links.map((link, index) => 
                         <li className="py-1 pl-4" key={index}><a onClick={link.onClick}>{link.title}</a></li>
                         )}
-                        <Switch onClick={onSwitchClick} mode={isDarkMode} />
+                        <Switch onClick={onSwitchClick} mode={isDarkMode} classNames="ml-3" />
                         </Dropdown>}
                     {visible && <Switch onClick={onSwitchClick} mode={isDarkMode} />}
                 </ul>
@@ -70,4 +72,4 @@ const Layout = ({children}:{children: React.ReactNode}) => {
         </>
     )
 }
-export default Layout;
+export { Layout }

@@ -2,7 +2,7 @@ import React from "react";
 import * as svgs from '../assets';
 
 export type IconType = keyof typeof svgs;
-export type Color =  `${string}` | 'currentColor';
+export type Color =  string;
 export interface IconProps {
     name: IconType,
     className?: string,

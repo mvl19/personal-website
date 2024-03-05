@@ -1,4 +1,5 @@
-import { useRef, useCallback, useEffect, useState, } from "react";
+import { useRef, useCallback, useEffect, useState, useContext } from "react";
+import { ThemeContext } from "../Layout";
 
 interface SwipeInfo {
     isSwiping: boolean,
@@ -23,7 +24,7 @@ const Slider = <T extends HTMLDivElement>({heading="Heading", SENSITIVITY=25, ad
     originX: 0,
     transitionX: 0
   });
-
+  const isDarkMode = useContext(ThemeContext);
   const onMouseDown = useCallback((e: React.TouchEvent | React.MouseEvent | TouchEvent) => {
     e.preventDefault();
     if (swipeInfo.isSwiping) return;
@@ -112,8 +113,8 @@ const Slider = <T extends HTMLDivElement>({heading="Heading", SENSITIVITY=25, ad
   }, [onMouseDown]);
 
     return (
-        <section className={"bg-[#f7f7f7] text-black py-10 " + `${adjacent ? "px-0" : "px-20"}`}>
-          <h2 className={"text-3xl font-bold text-center py-5"}>{heading}</h2>
+        <section className={"py-10 " + `${adjacent ? "px-0" : "px-20"} ${isDarkMode ? "bg-[#242424] text-white" : "bg-[#f7f7f7] text-black"}`}>
+          <h2 className={"text-3xl font-bold text-center py-5 " + `${isDarkMode && "text-[#3ccf8d]"}`}>{heading}</h2>
             <div className="flex justify-center items-center overflow-hidden ">
               <div className="relative w-[262px] h-[262px] transition ease-out z-1">
                 <div className="absolute flex w-full h-full t-0 l-0 z-1 " 

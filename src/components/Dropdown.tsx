@@ -33,8 +33,8 @@ const Dropdown = ({
         <li className="flex items-center justify-center menu list-none min-w-20 max-w-40 cursor-pointer align-self-center">
             <a className="flex items-center text-start z-50 text-base transition-all ease-in-linear" onClick={showMenu}>
                 <span className="text-black">{title}</span> 
-                <Icon name="CloseIcon" className={`h-[32px] w-[32px] transition-transform ${visible ? "rotate-90" : "opacity-0 h-0 w-0"}`} />
-                <Icon name="ArrowIcon" className={`h-[32px] w-[32px] transition-transform ${visible ? "opacity-0 h-0 w-0" : "rotate-180"}`} />
+                <Icon name="CloseIcon" className={`h-[32px] w-[32px] transition-transform ${visible ? "" : "hidden"}`} fill="currentColor" />
+                <Icon name="ArrowIcon" className={`h-[32px] w-[32px] transition-transform ${visible ? "hidden" : ""}`} fill="currentColor"/>
             </a>
             <ul className={`text-xl rounded-lg z-[99] px-2 py-2 right-2 md:p-0 border box-shadow-xl mt-16 top-0 
             w-40 block ${isDarkMode ? "bg-[#1a1a1a]" : "bg-white"} ${visible ? "fixed" : "hidden"}`}>

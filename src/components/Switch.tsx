@@ -2,14 +2,15 @@ import Icon from "./Icon";
 
 export interface SwitchProps {
     onClick: () => void,
-    mode: boolean
+    mode: boolean,
+    classNames?: string,
 }
 
-const Switch = ({onClick, mode}: SwitchProps) => {
+const Switch = ({onClick, mode, classNames=""}: SwitchProps) => {
 
     return (
         <button className={`relative block rounded-full h-[22px] w-[40px] border border-[#d9d9d9] cursor-pointer bg-gray-100
-        p-0 transition-all ${mode ? "bg-slate-700" : "bg-gray-100"}`} aria-label="toggle light or dark mode" onClick={onClick}>
+        p-0 transition-all ${mode ? "bg-slate-700" : "bg-gray-100"} ` + classNames} aria-label="toggle light or dark mode" onClick={onClick}>
             <span className={"absolute top-[1px] left-[1px] rounded-full w-[18px] h-[18px] transition-all duration-150 ease-in-out shadow-xl " + 
             `${mode ?  "bg-[#1a1a1a]" :  "bg-[#ffffff]"}`} 
             style={{transform: `${mode ? "translate(18px)" : "" }`}}>

@@ -1,10 +1,7 @@
 import Card from "../../components/Card";
 import Icon from "../../components/Icon";
-import { useContext } from "react";
-import { ThemeContext } from "../../components/Layout";
 
-const Tech = () => {
-    const isDarkMode = useContext(ThemeContext);
+const Tech = ({isDarkMode}:{isDarkMode: boolean|string}) => {
 
     return (
         <section className={"lg:grid lg:grid-cols-2 sm:flex sm:justify-center sm:flex-wrap items-center gap-10 " + `${isDarkMode ? "bg-[#1a1a1a]" : "bg-white"}`} data-section id="home">
@@ -15,12 +12,12 @@ const Tech = () => {
                 <h3 className={`text-2xl tracking-medium ${isDarkMode ? "text-[#3ccf8d]" : "text-black"}`}>Technologies & Frameworks</h3>
                 <div className="flex flex-wrap justify-center items-center gap-8 py-8 m-2 grow shrink" >
                     <Card className="animate-[fadeup_1s_ease-in-out]">
-                        <Icon name="ReactIcon" className="h-12 w-12" />
+                        <Icon name="ReactIcon" className={`h-12 w-12 ${isDarkMode && "[&>g]:fill-white "}`} />
                         <Icon name="VueIcon" className="h-12 w-12" />
                         <Icon name="SvelteIcon" className="h-12 w-12" />
                     </Card>
                     <Card className="animate-[fadeup_1.5s_ease-in-out]">
-                        <Icon name="ExpressIcon" className="h-12 w-12"/>
+                        <Icon name="ExpressIcon" className={`h-12 w-12 ${isDarkMode && "fill-white"}`} />
                         <Icon name="FastApiIcon" className="h-12 w-12 m-2" />
                     </Card>
                     <Card className="animate-[fadeup_2.5s_ease-in-out]">
@@ -29,11 +26,11 @@ const Tech = () => {
                     </Card>
                     <Card className="animate-[fadeup_1.5s_ease-in-out]">
                         <Icon name="FirebaseIcon" className="h-12 w-12" />
-                        <Icon name="SparkIcon" className="h-12 w-12" />
+                        <Icon name="SparkIcon" className={`h-12 w-12 ${isDarkMode && "[&>path]:fill-white "}`} />
                         <Icon name="PostgreIcon" className="h-12 w-12" />
                     </Card>
                     <Card className="animate-[fadeup_2.5s_ease-in-out]">
-                        <Icon name="KafkaIcon" className="h-12 w-12" />
+                        <Icon name="KafkaIcon" className={`h-12 w-12 ${isDarkMode && "[&>path]:fill-white "}`} />
                         <Icon name="RabbitIcon" className="h-12 w-12" />
                     </Card>
                     <Card className="animate-[fadeup_3.5s_ease-in-out]">

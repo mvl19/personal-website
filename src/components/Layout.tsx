@@ -1,11 +1,12 @@
 import { createContext, } from "react";
 import Dropdown from "./Dropdown";
 import Footer from "../pages/Content/Footer";
-import Icon from "./Icon";
+import { Icon } from "./Icon";
 import { Switch } from "./Switch";
 import useViewport from "../hooks/useViewport";
 import useActive from "../hooks/useActive";
 import useTheme from "../hooks/useTheme";
+import { data } from "../pages/Content/data";
 
 export const ViewContext = createContext(false);
 export const ThemeContext = createContext<boolean|string>(false);
@@ -14,25 +15,6 @@ const Layout = ({children}:{children: React.ReactNode}) => {
     const visible = useViewport();
     const [isDarkMode, setIsDarkMode] = useTheme();
     const activeSection = useActive('[data-section]');
-
-    const links = [
-        {title: 'Home',
-        onClick: ()=>{
-            window.scrollTo({top: 0, left:0, behavior:'smooth'});
-        }
-        },
-        {title: 'About',
-        onClick: ()=> {
-            const section = document.querySelector( '#about' );
-            section!.scrollIntoView( { behavior: 'smooth', block: 'start' } );
-        }},
-        {title:'Projects',
-        onClick: ()=>{
-            const section = document.querySelector( '#projects' );
-            section!.scrollIntoView( { behavior: 'smooth', block: 'start' } );
-        }
-        },
-    ]
 
     const onSwitchClick = () => {
         setIsDarkMode(!isDarkMode);
@@ -52,9 +34,9 @@ const Layout = ({children}:{children: React.ReactNode}) => {
             </div>
             <nav className={"text-sm md:text-base whitespace-normal shrink " + (visible ? "grow" : "")}>
                 <ul className={(visible ? "flex justify-around items-center pr-4 text-xl " : "flex justify-end ") }>
-                    {visible ? links.map((link, index) => 
+                    {visible ? data.links.map((link, index) => 
                     <li className="border-transparent text-xl" key={index}><a className={"hover:cursor-pointer p-2 " + `${activeSection === link.title.toLowerCase() ? "text-[#42b883] rounded ": ""}`} onClick={link.onClick}>{link.title}</a></li>
-                    ) : <Dropdown isDarkMode={isDarkMode}>{links.map((link, index) => 
+                    ) : <Dropdown isDarkMode={isDarkMode}>{data.links.map((link, index) => 
                         <li className="py-1 pl-4" key={index}><a onClick={link.onClick}>{link.title}</a></li>
                         )}
                         <Switch onClick={onSwitchClick} mode={isDarkMode} classNames="ml-3" />
@@ -68,7 +50,7 @@ const Layout = ({children}:{children: React.ReactNode}) => {
                 {children}
             </ViewContext.Provider>
         </ThemeContext.Provider>
-        <Footer />
+        <Footer isDarkMode={isDarkMode} />
         </>
     )
 }

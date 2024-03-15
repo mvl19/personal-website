@@ -12,9 +12,10 @@ interface SliderProps {
   SENSITIVITY?: number,
   adjacent?: boolean,
   children: React.ReactNode,
+  id: string,
 }
 
-const Slider = <T extends HTMLDivElement>({heading="Heading", SENSITIVITY=25, adjacent=true, children} : SliderProps) => {
+const Slider = <T extends HTMLDivElement>({heading="Heading", SENSITIVITY=25, adjacent=true, children, id} : SliderProps) => {
   const FIRST_SLIDES = 1;
   const [slides, setSlides] = useState<Element[]>([]);
   const ref = useRef() as React.MutableRefObject<T>;
@@ -113,7 +114,7 @@ const Slider = <T extends HTMLDivElement>({heading="Heading", SENSITIVITY=25, ad
   }, [onMouseDown]);
 
     return (
-        <section className={"py-10 " + `${adjacent ? "px-0" : "px-20"} ${isDarkMode ? "bg-[#242424] text-white" : "bg-[#f7f7f7] text-black"}`}>
+        <section id={id} className={"py-10 transition-colors " + `${adjacent ? "px-0" : "px-20"} ${isDarkMode ? "bg-[#242424] text-white" : "bg-[#f7f7f7] text-black"}`}>
           <h2 className={"text-3xl font-bold text-center py-5 " + `${isDarkMode && "text-[#3ccf8d]"}`}>{heading}</h2>
             <div className="flex justify-center items-center overflow-hidden ">
               <div className="relative w-[262px] h-[262px] transition ease-out z-1">

@@ -20,4 +20,4 @@ const Icon = ({name, className, style, fill, stroke}: IconProps) => {
     })
 }
 
-export default Icon;
+export { Icon }

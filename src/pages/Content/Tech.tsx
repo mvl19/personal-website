@@ -1,5 +1,5 @@
 import Card from "../../components/Card";
-import Icon from "../../components/Icon";
+import { Icon } from "../../components/Icon";
 
 const Tech = ({isDarkMode}:{isDarkMode: boolean|string}) => {
 
